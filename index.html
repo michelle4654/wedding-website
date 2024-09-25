@@ -68,6 +68,29 @@
             }
         }
 
+        /* Game Styles */
+        #gameArea {
+            width: 100%;
+            height: 300px; /* Adjust height to fit the game */
+            background-color: #f0f0f0;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px; /* Spacing between sections */
+        }
+
+        .face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #score {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -101,10 +124,50 @@
         <img src="https://example.com/confetti.gif" alt="Confetti GIF">
         <img src="https://example.com/heart-animation.gif" alt="Hearts GIF">
     </div>
+
+    <!-- New Game Section -->
+    <h2>Play the Catch-the-Face Game!</h2>
+    <div id="gameArea"></div>
+    <div id="score">Score: 0</div>
+
 </div>
 
-<!-- Optional: Background Music -->
-<!-- <embed src="https://example.com/wedding-march.mid" autostart="true" loop="true" hidden="true"> -->
+<!-- Game JavaScript -->
+<script>
+    let score = 0;
+
+    // Update the score
+    function updateScore() {
+        document.getElementById('score').innerText = `Score: ${score}`;
+    }
+
+    // Function to create a new face in a random position
+    function createFace() {
+        const gameArea = document.getElementById('gameArea');
+        const face = document.createElement('img');
+        face.src = 'mazin.png'; // Ensure this path is correct
+        face.className = 'face';
+        
+        // Set random position
+        const randomX = Math.random() * (gameArea.clientWidth - 100); // Use gameArea width instead of window
+        const randomY = Math.random() * (gameArea.clientHeight - 100); // Keep it within the game area height
+        face.style.left = `${randomX}px`;
+        face.style.top = `${randomY}px`;
+
+        // Add click event listener
+        face.addEventListener('click', function() {
+            score++;
+            updateScore();
+            gameArea.removeChild(face); // Remove the face when clicked
+            createFace(); // Create a new face
+        });
+
+        gameArea.appendChild(face);
+    }
+
+    // Start the game by creating the first face
+    createFace();
+</script>
 
 </body>
 </html>
