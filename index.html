@@ -34,6 +34,40 @@
             color: purple;
             font-weight: bold;
         }
+        .bouncing-gif {
+            position: absolute;
+            width: 150px;
+            height: auto;
+            animation: bounce 10s infinite linear;
+        }
+
+        @keyframes bounce {
+            0% {
+                top: 5%;
+                left: 5%;
+            }
+            20% {
+                top: 50%;
+                left: 90%;
+            }
+            40% {
+                top: 90%;
+                left: 10%;
+            }
+            60% {
+                top: 20%;
+                left: 80%;
+            }
+            80% {
+                top: 70%;
+                left: 30%;
+            }
+            100% {
+                top: 10%;
+                left: 50%;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -45,7 +79,7 @@
 
     <p><blink>We're getting married on 05/17/25!</blink> (Yes, it’s happening!)</p>
     
-    <img src="mazin-michelle.gif" alt="Bride and Groom GIF" class="gif">
+    <img src="mazin-michelle.gif" alt="Bride and Groom GIF" class="bouncing-gif">
     
     <h2>Our Love Story</h2>
     <p>It all started when Michelle and Mazin met at a Physics Qual Study Session. It was love at first sight. Well, maybe second sight. Or third or hundredth... it was very gradual! Now, after years of epic adventures, they’re ready to tie the knot!</p>
