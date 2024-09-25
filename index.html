@@ -91,6 +91,12 @@
             margin-top: 10px;
         }
 
+        #timer {
+            font-size: 24px;
+            color: red;
+            margin-top: 10px;
+        }
+
     </style>
 </head>
 <body>
@@ -129,20 +135,29 @@
     <h2>Play the Catch-the-Face Game!</h2>
     <div id="gameArea"></div>
     <div id="score">Score: 0</div>
+    <div id="timer">Time Left: 30s</div>
 
 </div>
 
 <!-- Game JavaScript -->
 <script>
     let score = 0;
+    let timeLeft = 30; // Set the timer for 30 seconds
+    let gameActive = true; // Game state
 
     // Update the score
     function updateScore() {
         document.getElementById('score').innerText = `Score: ${score}`;
     }
 
+    // Update the timer display
+    function updateTimer() {
+        document.getElementById('timer').innerText = `Time Left: ${timeLeft}s`;
+    }
+
     // Function to create a new face in a random position
     function createFace() {
+        if (!gameActive) return; // Stop creating faces when the game is over
         const gameArea = document.getElementById('gameArea');
         const face = document.createElement('img');
         face.src = 'mazin.png'; // Ensure this path is correct
@@ -156,17 +171,34 @@
 
         // Add click event listener
         face.addEventListener('click', function() {
-            score++;
-            updateScore();
-            gameArea.removeChild(face); // Remove the face when clicked
-            createFace(); // Create a new face
+            if (gameActive) {
+                score++;
+                updateScore();
+                gameArea.removeChild(face); // Remove the face when clicked
+                createFace(); // Create a new face
+            }
         });
 
         gameArea.appendChild(face);
     }
 
-    // Start the game by creating the first face
+    // Start the timer countdown
+    function startTimer() {
+        const timerInterval = setInterval(function() {
+            timeLeft--;
+            updateTimer();
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                gameActive = false; // End the game
+                alert(`Time's up! Your final score is: ${score}`);
+            }
+        }, 1000);
+    }
+
+    // Start the game by creating the first face and starting the timer
     createFace();
+    startTimer();
 </script>
 
 </body>
