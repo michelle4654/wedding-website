@@ -108,7 +108,44 @@
 
     <p><blink>We're getting married on 05/17/25!</blink> (Yes, it’s happening!)</p>
     
-    <img src="mazin-michelle.gif" alt="Bride and Groom GIF" class="bouncing-gif">
+    <img id="bouncingGif" src="mazin-michelle.gif" style="position:absolute; width:150px; height:auto;" />
+
+<script>
+    let gif = document.getElementById('bouncingGif');
+    let posX = 0;
+    let posY = 0;
+    let velocityX = 2; // Change to adjust speed
+    let velocityY = 2; // Change to adjust speed
+    const gifWidth = gif.offsetWidth;
+    const gifHeight = gif.offsetHeight;
+
+    // Get window size
+    let maxX = window.innerWidth - gifWidth;
+    let maxY = window.innerHeight - gifHeight;
+
+    // Function to move the GIF
+    function moveGif() {
+        posX += velocityX;
+        posY += velocityY;
+
+        // Check if GIF hits the edges
+        if (posX <= 0 || posX >= maxX) {
+            velocityX = -velocityX; // Reverse direction
+        }
+        if (posY <= 0 || posY >= maxY) {
+            velocityY = -velocityY; // Reverse direction
+        }
+
+        // Apply new position
+        gif.style.left = posX + "px";
+        gif.style.top = posY + "px";
+
+        requestAnimationFrame(moveGif); // Continually update position
+    }
+
+    // Start moving the GIF
+    moveGif();
+</script>
     
     <h2>Our Love Story</h2>
     <p>It all started when Michelle and Mazin met at a Physics Qual Study Session. It was love at first sight. Well, maybe second sight. Or third or hundredth... it was very gradual! Now, after years of epic adventures, they’re ready to tie the knot!</p>
